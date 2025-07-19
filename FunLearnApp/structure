@@ -1,0 +1,117 @@
+FunLearnApp/
+├── 📄 App.js                          # Main entry point (modify existing)
+├── 📄 app.json                        # Expo config (existing)
+├── 📄 package.json                    # Dependencies (existing)
+├── 📄 package-lock.json               # Lock file (existing)
+├── 📄 index.js                        # Entry file (existing)
+├── 📄 README.md                       # Documentation (existing)
+├── 📄 .gitignore                      # Git ignore (existing)
+├── 📄 babel.config.js                 # Babel config (create if needed)
+│
+├── 📂 assets/                         # Static assets (existing)
+│   ├── 📄 adaptive-icon.png           # Existing
+│   ├── 📄 favicon.png                 # Existing
+│   ├── 📄 icon.png                    # Existing
+│   ├── 📄 splash-icon.png             # Existing
+│   ├── 📂 images/                     # Create new folder
+│   │   ├── 📄 logo.png                # App logo
+│   │   ├── 📄 welcome-bg.png          # Welcome screen background
+│   │   └── 📂 avatars/                # Default avatars for kids
+│   │       ├── 📄 boy1.png
+│   │       ├── 📄 girl1.png
+│   │       ├── 📄 robot.png
+│   │       └── 📄 cat.png
+│   │
+│   └── 📂 sounds/                     # Audio files (optional)
+│       ├── 📄 success.mp3
+│       └── 📄 button-click.mp3
+│
+├── 📂 src/                            # CREATE THIS MAIN SOURCE FOLDER
+│   ├── 📂 screens/                    # All app screens
+│   │   ├── 📂 auth/                   # Authentication screens
+│   │   │   ├── 📄 WelcomeScreen.js    # Landing screen
+│   │   │   ├── 📄 SignUpScreen.js     # Sign-up form (main component)
+│   │   │   └── 📄 SignInScreen.js     # Sign-in screen
+│   │   │
+│   │   ├── 📂 onboarding/             # Initial setup screens
+│   │   │   ├── 📄 InitialTestScreen.js # Assessment after signup
+│   │   │   └── 📄 TutorialScreen.js    # App tutorial
+│   │   │
+│   │   ├── 📂 main/                   # Main app screens
+│   │   │   ├── 📄 HomeScreen.js       # Dashboard/home
+│   │   │   ├── 📄 LessonsScreen.js    # Learning lessons
+│   │   │   ├── 📄 GamesScreen.js      # Educational games
+│   │   │   ├── 📄 ProgressScreen.js   # Progress tracking
+│   │   │   └── 📄 RewardsScreen.js    # Achievements/rewards
+│   │   │
+│   │   └── 📂 profile/                # User-related screens
+│   │       ├── 📄 ProfileScreen.js    # User profile
+│   │       ├── 📄 SettingsScreen.js   # App settings
+│   │       └── 📄 ParentDashboard.js  # Parent controls
+│   │
+│   ├── 📂 components/                 # Reusable UI components
+│   │   ├── 📂 common/                 # Generic components
+│   │   │   ├── 📄 Button.js           # Custom button
+│   │   │   ├── 📄 Input.js            # Custom text input
+│   │   │   ├── 📄 Card.js             # Card container
+│   │   │   ├── 📄 Header.js           # App header
+│   │   │   ├── 📄 LoadingSpinner.js   # Loading indicator
+│   │   │   └── 📄 SafeAreaWrapper.js  # Safe area component
+│   │   │
+│   │   ├── 📂 forms/                  # Form-specific components
+│   │   │   ├── 📄 FormInput.js        # Form input with validation
+│   │   │   ├── 📄 GradePicker.js      # Grade selection picker
+│   │   │   └── 📄 AvatarPicker.js     # Avatar selection component
+│   │   │
+│   │   └── 📂 ui/                     # UI-specific components
+│   │       ├── 📄 ProgressBar.js      # Progress indicator
+│   │       ├── 📄 Badge.js            # Achievement badges
+│   │       └── 📄 AnimatedButton.js   # Animated interactions
+│   │
+│   ├── 📂 navigation/                 # Navigation configuration
+│   │   ├── 📄 AppNavigator.js         # Root navigator
+│   │   ├── 📄 AuthNavigator.js        # Auth stack
+│   │   ├── 📄 MainNavigator.js        # Main app stack
+│   │   └── 📄 TabNavigator.js         # Bottom tabs
+│   │
+│   ├── 📂 config/                     # Configuration files
+│   │   ├── 📄 firebase.js             # Firebase setup
+│   │   ├── 📄 constants.js            # App constants
+│   │   └── 📄 environment.js          # Environment variables
+│   │
+│   ├── 📂 services/                   # API and external services
+│   │   ├── 📄 authService.js          # Authentication operations
+│   │   ├── 📄 firestoreService.js     # Database operations
+│   │   ├── 📄 imageService.js         # Image upload/handling
+│   │   └── 📄 notificationService.js  # Push notifications
+│   │
+│   ├── 📂 hooks/                      # Custom React hooks
+│   │   ├── 📄 useAuth.js              # Authentication hook
+│   │   ├── 📄 useFirestore.js         # Firestore operations hook
+│   │   ├── 📄 useImagePicker.js       # Image picker hook
+│   │   └── 📄 useKeyboard.js          # Keyboard handling
+│   │
+│   ├── 📂 contexts/                   # React Context providers
+│   │   ├── 📄 AuthContext.js          # User authentication state
+│   │   ├── 📄 UserContext.js          # User profile data
+│   │   └── 📄 AppContext.js           # Global app state
+│   │
+│   ├── 📂 utils/                      # Utility functions
+│   │   ├── 📄 validation.js           # Form validation helpers
+│   │   ├── 📄 helpers.js              # General utility functions
+│   │   ├── 📄 dateUtils.js            # Date formatting utilities
+│   │   └── 📄 storage.js              # Local storage operations
+│   │
+│   ├── 📂 styles/                     # Styling configuration
+│   │   ├── 📄 theme.js                # App theme (colors, fonts, etc.)
+│   │   ├── 📄 globalStyles.js         # Global StyleSheet
+│   │   ├── 📄 colors.js               # Color palette
+│   │   ├── 📄 typography.js           # Font styles
+│   │   └── 📄 spacing.js              # Spacing constants
+│   │
+│   └── 📂 data/                       # Static data and mock data
+│       ├── 📄 grades.js               # Grade options data
+│       ├── 📄 avatars.js              # Default avatar options
+│       └── 📄 mockData.js             # Development mock data
+│
+└── 📂 node_modules/                   # Dependencies (auto-generated)
