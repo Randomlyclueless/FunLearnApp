@@ -1,18 +1,20 @@
-import React, { useState } from "react";
-import LoginScreen from "./src/screens/LoginScreen";
-import HomeScreen from "./src/screens/HomeScreen";
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, Text, View } from 'react-native';
 
 export default function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
   return (
-    <>
-      {" "}
-      {isLoggedIn ? (
-        <HomeScreen onLogout={() => setIsLoggedIn(false)} />
-      ) : (
-        <LoginScreen onLogin={() => setIsLoggedIn(true)} />
-      )}{" "}
-    </>
+    <View style={styles.container}>
+      <Text>Open up App.js to start working on your app!</Text>
+      <StatusBar style="auto" />
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
