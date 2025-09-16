@@ -1,12 +1,18 @@
 // App.js
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, View } from "react-native";
-import Poem from "./poem"; // ✅ must match filename
+// import Poem from "./poem";   // ❌ not needed now
+import Words from "./words"; // ✅ only Words page is active
+
+// 👇 currently using Words page
+const DEFAULT_PAGE = "words";
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Poem /> <StatusBar style="auto" />
+      {" "}
+      {/* ✅ show only Words page */}{" "}
+      {DEFAULT_PAGE === "poem" ? null : <Words />} <StatusBar style="auto" />
     </View>
   );
 }
