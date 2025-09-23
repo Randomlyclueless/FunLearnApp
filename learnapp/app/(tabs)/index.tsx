@@ -10,7 +10,7 @@ import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import * as Animatable from "react-native-animatable";
-import { styles } from "./styles";
+import { styles } from "../../dontknowyet/styles";
 
 // Prevent splash screen from auto-hiding
 SplashScreen.preventAutoHideAsync();

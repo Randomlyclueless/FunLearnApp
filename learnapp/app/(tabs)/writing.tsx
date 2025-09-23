@@ -1,4 +1,3 @@
-// app/(tabs)/writing.tsx
 import React, { useState } from "react";
 import {
   View,
@@ -8,13 +7,108 @@ import {
   StyleSheet,
 } from "react-native";
 
+// --- Type Definitions ---
+interface WordData {
+  word: string;
+  focus: string;
+}
+
+// --- Simulated AI Backend ---
+const learningWords: WordData[] = [
+  { word: "bag", focus: "b" },
+  { word: "bed", focus: "b" },
+  { word: "dog", focus: "d" },
+  { word: "dusk", focus: "d" },
+  { word: "pen", focus: "p" },
+  { word: "queen", focus: "q" },
+  { word: "cat", focus: "c" },
+  { word: "goat", focus: "g" },
+];
+
+const getAIResponse = (userText: string, wordData: WordData) => {
+  const { word, focus } = wordData;
+  const userTextLower = userText.trim().toLowerCase();
+  const wordLower = word.toLowerCase();
+
+  if (userTextLower === wordLower) {
+    return {
+      status: "correct",
+      message: "✅ Great job! You spelled it perfectly!",
+    };
+  }
+
+  // --- Simulated intelligent analysis for common mistakes ---
+  if (
+    focus === "b" &&
+    (userTextLower.startsWith("d") || userTextLower.includes("d"))
+  ) {
+    return {
+      status: "incorrect",
+      message:
+        "❌ That's close! Remember, 'b' is a stick and a ball, not a 'd'. Try again!",
+    };
+  }
+  if (
+    focus === "d" &&
+    (userTextLower.startsWith("b") || userTextLower.includes("b"))
+  ) {
+    return {
+      status: "incorrect",
+      message:
+        "❌ Almost! 'D' has its round part first, then the stick. Try again!",
+    };
+  }
+  if (
+    focus === "p" &&
+    (userTextLower.startsWith("q") || userTextLower.includes("q"))
+  ) {
+    return {
+      status: "incorrect",
+      message: "❌ That looks a bit like a 'q'. Remember, 'p' goes down first.",
+    };
+  }
+  if (
+    focus === "q" &&
+    (userTextLower.startsWith("p") || userTextLower.includes("p"))
+  ) {
+    return {
+      status: "incorrect",
+      message: "❌ Be careful with 'q' and 'p'. 'Q' has its tail going down.",
+    };
+  }
+
+  // --- General feedback for other errors ---
+  return {
+    status: "incorrect",
+    message: "❌ Let's try that one again. You can do it!",
+  };
+};
+
 export default function WritingScreen() {
+  const [currentWordData, setCurrentWordData] = useState<WordData>(
+    learningWords[0]
+  );
   const [userText, setUserText] = useState("");
+  const [feedback, setFeedback] = useState({ status: "", message: "" });
   const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = () => {
+    const result = getAIResponse(userText, currentWordData);
+    setFeedback(result);
     setSubmitted(true);
-    // Integrate AI feedback logic here later
+
+    // Move to next word on correct answer
+    if (result.status === "correct") {
+      const currentIndex = learningWords.findIndex(
+        (w) => w.word === currentWordData.word
+      );
+      const nextIndex = (currentIndex + 1) % learningWords.length;
+      setTimeout(() => {
+        setCurrentWordData(learningWords[nextIndex]);
+        setUserText("");
+        setSubmitted(false);
+      }, 1500);
+    }
   };
 
   return (
@@ -25,7 +119,7 @@ export default function WritingScreen() {
       </View>
       <View style={styles.promptArea}>
         <Text style={styles.prompt}>Practice spelling this word:</Text>
-        <Text style={styles.word}>elephant</Text>
+        <Text style={styles.word}>{currentWordData.word}</Text>
         <Text
           style={{
             fontSize: 20,
@@ -48,19 +142,19 @@ export default function WritingScreen() {
         </TouchableOpacity>
         {submitted && (
           <View style={styles.feedback}>
-            {userText.trim().toLowerCase() === "elephant" ? (
-              <>
-                <Text style={styles.correct}>✅ Great job!</Text>
-                <Text style={{ fontSize: 20 }}>🦉</Text>
-              </>
-            ) : (
-              <>
-                <Text style={styles.incorrect}>
-                  ❌ Try again! Focus on the “ph” part.{" "}
-                </Text>
-                <Text style={{ fontSize: 20 }}>🐘</Text>
-              </>
-            )}
+            <Text
+              style={[
+                styles.feedbackText,
+                feedback.status === "correct"
+                  ? styles.correct
+                  : styles.incorrect,
+              ]}
+            >
+              {feedback.message}
+            </Text>
+            <Text style={{ fontSize: 20 }}>
+              {feedback.status === "correct" ? "🦉" : "🐘"}
+            </Text>
           </View>
         )}
       </View>
@@ -108,16 +202,15 @@ const styles = StyleSheet.create({
   },
   btnText: { fontSize: 18, color: "#FFF", fontWeight: "700" },
   feedback: { marginTop: 24, alignItems: "center" },
-  correct: {
-    color: "#34D399",
-    fontWeight: "700",
-    fontSize: 18,
-    marginBottom: 4,
-  },
-  incorrect: {
-    color: "#F05936",
+  feedbackText: {
     fontWeight: "600",
     fontSize: 18,
     marginBottom: 4,
+  },
+  correct: {
+    color: "#34D399",
+  },
+  incorrect: {
+    color: "#F05936",
   },
 });

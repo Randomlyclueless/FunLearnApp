@@ -1,12 +1,21 @@
-import { Tabs } from "expo-router";
+import { Stack } from "expo-router";
+import { useFonts } from "expo-font";
 
-export default function TabLayout() {
+export default function RootLayout() {
+  const [fontsLoaded] = useFonts({
+    OpenDyslexic: require("../assets/fonts/OpenDyslexic3-Bold.ttf"),
+  });
+
+  if (!fontsLoaded) {
+    return null;
+  }
+
   return (
-    <Tabs>
-      <Tabs.Screen name="index" options={{ title: "Home" }} />
-      <Tabs.Screen name="two" options={{ title: "Learn" }} />
-      <Tabs.Screen name="progress" options={{ title: "Progress" }} />
-      <Tabs.Screen name="settings" options={{ title: "Settings" }} />
-    </Tabs>
+    <Stack>
+      {/* This makes the onboarding screen the first page the user sees */}
+      <Stack.Screen name="_onboarding" options={{ headerShown: false }} />
+      {/* The rest of the app is within the (tabs) folder */}
+      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+    </Stack>
   );
 }
