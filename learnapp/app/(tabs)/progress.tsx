@@ -1,97 +1,248 @@
-// app/(tabs)/progress.tsx
-import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import React, { useState, useEffect } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Image,
+  TouchableOpacity,
+  Alert,
+} from "react-native";
+import { useFonts } from "expo-font";
+import * as SplashScreen from "expo-splash-screen";
+import * as FileSystem from "expo-file-system";
+import * as Sharing from "expo-sharing";
+
+SplashScreen.preventAutoHideAsync();
 
 export default function ProgressScreen() {
-  const wordsLearned = 17; // Example number
-  const challengesCompleted = 5;
-  const readingStreak = 9; // Days
+  // Simulated data from our AI backend
+  const [reportData] = useState({
+    startDate: "September 1, 2023",
+    endDate: "September 7, 2023",
+    totalSessions: 7,
+    wordsPracticed: 25,
+    commonErrors: {
+      "b/d confusions": 5,
+      "p/q confusions": 3,
+      "m/n confusions": 2,
+    },
+    sentiment: {
+      mostCommon: "Engaged",
+      summary:
+        "The learner showed high levels of engagement, especially during tracing activities.",
+    },
+  });
+
+  const [fontsLoaded] = useFonts({
+    OpenDyslexic: require("../../assets/fonts/OpenDyslexic3-Bold.ttf"),
+  });
+
+  useEffect(() => {
+    if (fontsLoaded) {
+      SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
+
+  if (!fontsLoaded) {
+    return null;
+  }
+
+  // ✅ Export function (handles null documentDirectory)
+  const exportReport = async () => {
+    try {
+      const reportContent = `
+Child's Weekly Progress Report
+------------------------------
+Date Range: ${reportData.startDate} - ${reportData.endDate}
+
+Learning Summary:
+- Total Sessions: ${reportData.totalSessions}
+- Words Practiced: ${reportData.wordsPracticed}
+
+Common Error Patterns:
+${Object.entries(reportData.commonErrors)
+  .map(([error, count]) => `- ${error}: ${count} times`)
+  .join("\n")}
+
+Sentiment Analysis:
+- Most Common Emotion: ${reportData.sentiment.mostCommon}
+- Summary: ${reportData.sentiment.summary}
+`;
+
+      // ✅ Use cacheDirectory as fallback
+      const fileUri =
+        // @ts-ignore
+        (FileSystem.documentDirectory ?? FileSystem.cacheDirectory) +
+        "ProgressReport.txt";
+
+      await FileSystem.writeAsStringAsync(fileUri, reportContent);
+
+      if (await Sharing.isAvailableAsync()) {
+        await Sharing.shareAsync(fileUri);
+      } else {
+        Alert.alert("Export not supported on this device");
+      }
+    } catch (error: any) {
+      Alert.alert("Error", "Could not export report: " + error.message);
+    }
+  };
+
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.mascot}>🦉</Text>
-        <Text style={styles.title}>Your Progress</Text>
-      </View>
-      <View style={styles.summaryCard}>
-        <Text style={styles.bigNum}>{wordsLearned}</Text>
-        <Text style={styles.label}>Words Learned</Text>
-        <View style={styles.barBg}>
-          <View
-            style={[
-              styles.barFill,
-              { width: `${Math.min(wordsLearned, 20) * 5}%` },
-            ]}
-          />
-        </View>
-      </View>
-      <View style={styles.row}>
-        <View style={styles.statBox}>
-          <Text style={styles.statNum}>{challengesCompleted}</Text>
-          <Text style={styles.statLabel}>Challenges</Text>
-        </View>
-        <View style={styles.statBox}>
-          <Text style={styles.statNum}>{readingStreak}</Text>
-          <Text style={styles.statLabel}>Reading Streak</Text>
-        </View>
-      </View>
-      <View style={styles.promptArea}>
-        <Text style={styles.prompt}>
-          Keep going! You're on a {readingStreak}-day streak. 🎉
+        <Text style={styles.title}>Your Child's Progress</Text>
+        <Text style={styles.dateRange}>
+          Weekly Report: {reportData.startDate} - {reportData.endDate}
         </Text>
       </View>
-    </View>
+
+      <View style={styles.card}>
+        <Text style={styles.cardTitle}>Learning Summary</Text>
+        <Text style={styles.cardText}>
+          Total sessions completed:{" "}
+          <Text style={styles.highlight}>{reportData.totalSessions}</Text>
+        </Text>
+        <Text style={styles.cardText}>
+          Words practiced:{" "}
+          <Text style={styles.highlight}>{reportData.wordsPracticed}</Text>
+        </Text>
+      </View>
+
+      <View style={styles.card}>
+        <Text style={styles.cardTitle}>Common Error Patterns</Text>
+        {Object.entries(reportData.commonErrors).map(([error, count]) => (
+          <View key={error} style={styles.errorRow}>
+            <Text style={styles.errorText}>{error}</Text>
+            <Text style={styles.errorCount}>{count} times</Text>
+          </View>
+        ))}
+      </View>
+
+      <View style={styles.card}>
+        <Text style={styles.cardTitle}>Sentiment Analysis</Text>
+        <Text style={styles.cardText}>
+          Most common emotion:{" "}
+          <Text style={styles.highlight}>
+            {reportData.sentiment.mostCommon}
+          </Text>
+        </Text>
+        <Text style={styles.cardText}>{reportData.sentiment.summary}</Text>
+      </View>
+
+      <View style={styles.card}>
+        <Text style={styles.cardTitle}>Email Report Preview</Text>
+        <Text style={styles.cardText}>
+          This is a preview of the report sent to the parent's email. It
+          provides a full breakdown of progress and suggestions for future
+          activities.
+        </Text>
+        <Image
+          source={{
+            uri: "https://placehold.co/300x200/AEE7F8/222222?text=Email+Report+Preview",
+          }}
+          style={styles.imagePlaceholder}
+          resizeMode="contain"
+        />
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.buttonText}>Send Now</Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* ✅ Export Report Button */}
+      <TouchableOpacity
+        style={[styles.button, { backgroundColor: "#3B6EF7" }]}
+        onPress={exportReport}
+      >
+        <Text style={styles.buttonText}>Export Report</Text>
+      </TouchableOpacity>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#F8FAFC", padding: 26 },
-  header: { flexDirection: "row", alignItems: "center", marginBottom: 14 },
-  mascot: { fontSize: 40, marginRight: 10 },
-  title: { fontSize: 28, fontWeight: "700", color: "#2155CD" },
-  summaryCard: {
-    backgroundColor: "#E3ECFB",
-    borderRadius: 20,
-    padding: 20,
+  container: {
+    flex: 1,
+    backgroundColor: "#F2F8FF",
+    padding: 24,
+  },
+  header: {
+    marginBottom: 20,
     alignItems: "center",
-    marginBottom: 24,
-    elevation: 2,
   },
-  bigNum: { fontSize: 36, fontWeight: "800", color: "#3460B5" },
-  label: { fontSize: 19, color: "#29405F", marginTop: 8, marginBottom: 10 },
-  barBg: {
-    width: "100%",
-    height: 15,
-    backgroundColor: "#CFE2FD",
-    borderRadius: 10,
-    overflow: "hidden",
+  title: {
+    fontSize: 28,
+    fontWeight: "bold",
+    color: "#394693",
+    fontFamily: "OpenDyslexic",
   },
-  barFill: { height: 15, backgroundColor: "#34D399" },
-  row: {
+  dateRange: {
+    fontSize: 16,
+    color: "#838383",
+    fontFamily: "OpenDyslexic",
+  },
+  card: {
+    backgroundColor: "#fff",
+    borderRadius: 14,
+    padding: 20,
+    marginBottom: 20,
+    shadowColor: "#000",
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    elevation: 3,
+  },
+  cardTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#394693",
+    marginBottom: 10,
+    fontFamily: "OpenDyslexic",
+  },
+  cardText: {
+    fontSize: 16,
+    color: "#666",
+    lineHeight: 24,
+    fontFamily: "OpenDyslexic",
+  },
+  highlight: {
+    fontWeight: "bold",
+    color: "#3B6EF7",
+  },
+  errorRow: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginVertical: 12,
-    gap: 20,
+    marginBottom: 5,
   },
-  statBox: {
-    backgroundColor: "#FFF",
-    borderRadius: 16,
-    padding: 16,
-    alignItems: "center",
-    width: 120,
-    elevation: 1,
+  errorText: {
+    fontSize: 16,
+    color: "#666",
+    fontFamily: "OpenDyslexic",
   },
-  statNum: { fontSize: 28, color: "#38BDF8", fontWeight: "700" },
-  statLabel: { fontSize: 15, color: "#64748B", marginTop: 6 },
-  promptArea: {
-    marginTop: 36,
-    backgroundColor: "#E0F7FA",
-    borderRadius: 12,
-    padding: 16,
+  errorCount: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#F05936",
+    fontFamily: "OpenDyslexic",
   },
-  prompt: {
-    fontSize: 18,
-    textAlign: "center",
-    color: "#338C89",
-    fontWeight: "600",
+  imagePlaceholder: {
+    width: "100%",
+    height: 150,
+    backgroundColor: "#E8F0FE",
+    borderRadius: 10,
+    marginTop: 15,
+  },
+  button: {
+    backgroundColor: "#34D399",
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    borderRadius: 14,
+    marginTop: 20,
+    alignSelf: "center",
+  },
+  buttonText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "bold",
+    fontFamily: "OpenDyslexic",
   },
 });
