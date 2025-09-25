@@ -2,15 +2,21 @@ import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
-  StyleSheet,
   TouchableOpacity,
-  ActivityIndicator,
   useWindowDimensions,
   ScrollView,
+  ActivityIndicator,
+  StyleSheet,
+  Dimensions,
+  Image,
 } from "react-native";
 import { useRouter } from "expo-router";
 import * as Speech from "expo-speech";
 import { useFonts } from "expo-font";
+import * as Animatable from "react-native-animatable";
+import { LinearGradient } from "expo-linear-gradient";
+
+const { width } = Dimensions.get("window");
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -33,7 +39,7 @@ export default function HomeScreen() {
   ];
 
   const [fontsLoaded] = useFonts({
-    OpenDyslexic: require("../../assets/fonts/OpenDyslexic3-Bold.ttf"),
+    OpenDyslexic: require("../assets/fonts/OpenDyslexic3-Bold.ttf"),
   });
 
   useEffect(() => {
@@ -65,7 +71,6 @@ export default function HomeScreen() {
         },
       });
     }
-
     setTimeout(() => setIsLoading(false), 1500);
   };
 
@@ -81,61 +86,48 @@ export default function HomeScreen() {
     }
   };
 
-  const handleGetStarted = () => {
-    // This will take the user to the learn tab
-    router.replace("/(tabs)/welcome");
-  };
-
   if (!fontsLoaded) {
     return null;
   }
 
-  const powers = [
+  const features = [
     {
-      emoji: "🎤",
-      title: "I Can Talk & Listen!",
-      subtitle: "Like Your Best Friend",
+      emoji: "🤖",
+      title: "AI-Powered Learning",
       description:
-        "I can hear what you say and talk back to you! I give you high-fives when you do great and help you when you need it. It's like having a super smart friend who's always there to cheer you on!",
+        "Our adaptive AI personalizes lessons, identifies tricky patterns, and adjusts content in real-time to match your child's unique pace.",
     },
     {
       emoji: "👁️",
-      title: "I Can See Your Writing!",
-      subtitle: "Magic Vision Powers",
+      title: "Computer Vision",
       description:
-        "I have special eyes that can watch you write letters! If you mix up 'b' and 'd' or 'p' and 'q', I'll gently help you fix it. It's like having a magical helper watching over your shoulder!",
+        "Using our proprietary tech, we can correct common letter reversals like 'b' and 'd' by analyzing your child's hand movements during writing practice.",
     },
     {
-      emoji: "🧠",
-      title: "I Learn About You!",
-      subtitle: "Smart Brain That Cares",
+      emoji: "🎤",
+      title: "Conversational Intelligence",
       description:
-        "The more we play together, the better I understand how you like to learn! I remember what makes you happy and what you find tricky, so I can make everything perfect just for you!",
+        "A friendly AI companion listens to your child's pronunciation and provides instant, empathetic feedback to improve their phonetic awareness.",
     },
-  ];
-
-  const activities = [
-    { emoji: "📖", title: "Story Time", subtitle: "Read Together" },
-    { emoji: "🎵", title: "Letter Songs", subtitle: "Sing & Learn" },
-    { emoji: "✏️", title: "Write Letters", subtitle: "Practice Writing" },
-    { emoji: "🎯", title: "Fun Games", subtitle: "Play & Learn" },
-    { emoji: "🏆", title: "Earn Stars", subtitle: "Collect Rewards" },
-    { emoji: "🌟", title: "Daily Wins", subtitle: "Celebrate Success" },
-    { emoji: "📚", title: "Word Magic", subtitle: "Discover New Words" },
-    { emoji: "🎨", title: "Creative Fun", subtitle: "Draw & Color" },
   ];
 
   return (
     <ScrollView style={styles.outerContainer}>
       <View style={styles.innerContainer}>
-        {/* Kid-Friendly Header */}
         <View style={styles.header}>
-          <View style={styles.logoContainer}>
-            <View style={styles.logoIcon}>
+          <Animatable.View
+            animation="fadeInDown"
+            duration={1000}
+            style={styles.logoContainer}
+          >
+            <LinearGradient
+              colors={["#6C63FF", "#800080"]}
+              style={styles.logoIcon}
+            >
               <Text style={styles.logoIconText}>🧠</Text>
-            </View>
+            </LinearGradient>
             <Text style={styles.logoText}>Leximate</Text>
-          </View>
+          </Animatable.View>
           <TouchableOpacity
             onPress={() => setAudioEnabled(!audioEnabled)}
             style={styles.audioButton}
@@ -148,111 +140,144 @@ export default function HomeScreen() {
           </TouchableOpacity>
         </View>
 
-        {/* Hero Section */}
-        <View style={styles.heroSection}>
-          <Text style={styles.heroTitle}>
-            <Text style={{ color: "#6C63FF" }}>Hi Amazing</Text>
-            {"\n"}
-            <Text style={{ color: "#800080" }}>Reader!</Text>
-            {"\n"}
-            <Text style={{ color: "#394693" }}>Let's start your journey.</Text>
-          </Text>
-          <Text style={styles.heroSubtitle}>
-            Welcome to your special place where reading becomes a super fun
-            adventure! I'm your AI friend who makes letters dance and words
-            sing! 🎵✨
-          </Text>
-        </View>
-
-        {/* AI Mascot - More Kid-Friendly */}
-        <View style={styles.mascotArea}>
-          <TouchableOpacity
-            style={styles.mascotButton}
-            onPress={handleMascotClick}
-            disabled={isLoading || isSpeaking}
+        <Animatable.View
+          style={styles.heroSection}
+          animation="fadeIn"
+          duration={1500}
+        >
+          <Animatable.Text
+            style={styles.heroTitle}
+            animation="fadeInUp"
+            delay={200}
           >
-            <Text style={styles.mascotEmoji}>{getMascotEmoji()}</Text>
-            {isLoading || isSpeaking ? (
-              <View style={[StyleSheet.absoluteFill, styles.spinnerContainer]}>
-                <ActivityIndicator size="large" color="#fff" />
-              </View>
-            ) : null}
-          </TouchableOpacity>
-          {currentGreeting && (
-            <View style={styles.greetingBox}>
-              <View style={styles.greetingIconContainer}>
-                <Text style={{ fontSize: 24 }}>🎤</Text>
-              </View>
-              <Text style={styles.greetingText}>{currentGreeting}</Text>
-            </View>
-          )}
-        </View>
+            <Text style={{ color: "#6C63FF" }}>A New Way to</Text>
+            {"\n"}
+            <Text style={{ color: "#800080" }}>Conquer Dyslexia</Text>
+          </Animatable.Text>
+          <Animatable.Text
+            style={styles.heroSubtitle}
+            animation="fadeInUp"
+            delay={400}
+          >
+            The first AI-first platform that uses cutting-edge technology to
+            make learning intuitive, personal, and fun.
+          </Animatable.Text>
+        </Animatable.View>
 
-        {/* Big Fun Buttons */}
         <View style={styles.ctaButtonContainer}>
-          <TouchableOpacity style={styles.ctaButton} onPress={handleGetStarted}>
-            <View style={styles.ctaButtonContent}>
-              <Text style={styles.ctaButtonText}>Let's Start Reading!</Text>
-            </View>
-          </TouchableOpacity>
+          <Animatable.View
+            animation="pulse"
+            iterationCount="infinite"
+            duration={2000}
+          >
+            <TouchableOpacity
+              style={styles.ctaButton}
+              onPress={() => router.push("/auth")}
+            >
+              <Text style={styles.ctaButtonText}>Get Started (Parents)</Text>
+            </TouchableOpacity>
+          </Animatable.View>
         </View>
 
-        {/* What Makes Me Special - Kid Version */}
         <View style={styles.sectionContainer}>
           <View style={styles.sectionHeader}>
-            <Text style={styles.sectionTitle}>What Makes Me Special? 🌈</Text>
+            <Text style={styles.sectionTitle}>Our AI-First Features</Text>
             <Text style={styles.sectionSubtitle}>
-              I have three super cool powers that help you become an amazing
-              reader!
+              We use a suite of intelligent tools to create a personalized
+              learning journey for every child.
             </Text>
           </View>
-          <View style={styles.powersGrid}>
-            {powers.map((power, index) => (
-              <View key={index} style={styles.powerCard}>
-                <View style={styles.powerIconContainer}>
-                  <Text style={styles.powerIcon}>{power.emoji}</Text>
+          <View style={styles.featuresGrid}>
+            {features.map((feature, index) => (
+              <Animatable.View
+                key={index}
+                style={styles.featureCard}
+                animation="fadeInUp"
+                delay={index * 200 + 500}
+              >
+                <View style={styles.featureIconContainer}>
+                  <Text style={styles.featureIcon}>{feature.emoji}</Text>
                 </View>
-                <Text style={styles.powerTitle}>{power.title}</Text>
-                <Text style={styles.powerSubtitle}>{power.subtitle}</Text>
-                <Text style={styles.powerDescription}>{power.description}</Text>
-              </View>
+                <Text style={styles.featureTitle}>{feature.title}</Text>
+                <Text style={styles.featureDescription}>
+                  {feature.description}
+                </Text>
+              </Animatable.View>
             ))}
           </View>
         </View>
 
-        {/* Fun Activities */}
         <View style={styles.sectionContainer}>
           <View style={styles.sectionHeader}>
             <Text style={styles.sectionTitle}>
-              Amazing Things We Can Do! 🎪
+              Built for Your Child's Success
+            </Text>
+            <Text style={styles.sectionSubtitle}>
+              Every part of our app is designed with a dyslexic-friendly
+              approach in mind, from the content to the UI.
             </Text>
           </View>
-          <View style={styles.activitiesGrid}>
-            {activities.map((activity, index) => (
-              <View key={index} style={styles.activityCard}>
-                <Text style={styles.activityIcon}>{activity.emoji}</Text>
-                <Text style={styles.activityTitle}>{activity.title}</Text>
-                <Text style={styles.activitySubtitle}>{activity.subtitle}</Text>
-              </View>
-            ))}
+          <View style={styles.benefitsGrid}>
+            <Animatable.View
+              style={styles.benefitCard}
+              animation="fadeInLeft"
+              delay={1000}
+            >
+              <Text style={styles.benefitEmoji}>📖</Text>
+              <Text style={styles.benefitText}>
+                Dyslexic-friendly font for better readability.
+              </Text>
+            </Animatable.View>
+            <Animatable.View
+              style={styles.benefitCard}
+              animation="fadeInRight"
+              delay={1200}
+            >
+              <Text style={styles.benefitEmoji}>⭐</Text>
+              <Text style={styles.benefitText}>
+                Interactive and rewarding learning games.
+              </Text>
+            </Animatable.View>
+            <Animatable.View
+              style={styles.benefitCard}
+              animation="fadeInLeft"
+              delay={1400}
+            >
+              <Text style={styles.benefitEmoji}>🗓️</Text>
+              <Text style={styles.benefitText}>
+                Track your child's progress with weekly reports.
+              </Text>
+            </Animatable.View>
+            <Animatable.View
+              style={styles.benefitCard}
+              animation="fadeInRight"
+              delay={1600}
+            >
+              <Text style={styles.benefitEmoji}>✨</Text>
+              <Text style={styles.benefitText}>
+                A friendly AI mascot to guide every step of the journey.
+              </Text>
+            </Animatable.View>
           </View>
         </View>
 
-        {/* Encouragement Section */}
-        <View style={styles.encouragementContainer}>
-          <Text style={styles.encouragementText}>You Are Amazing! ⭐</Text>
-          <Text style={styles.encouragementSubtitle}>
-            Every superhero reader started just like you!
+        <Animatable.View
+          style={styles.finalCtaCard}
+          animation="zoomIn"
+          delay={1800}
+        >
+          <Text style={styles.finalCtaText}>
+            Ready to empower your child's learning?
           </Text>
           <TouchableOpacity
-            style={styles.encouragementButton}
-            onPress={handleGetStarted}
+            style={styles.finalCtaButton}
+            onPress={() => router.push("/auth")}
           >
-            <Text style={styles.encouragementButtonText}>
-              Let's Begin Our Adventure! 🚀
+            <Text style={styles.finalCtaButtonText}>
+              Join the Leximate Family
             </Text>
           </TouchableOpacity>
-        </View>
+        </Animatable.View>
       </View>
     </ScrollView>
   );
@@ -280,7 +305,6 @@ const styles = StyleSheet.create({
   logoIcon: {
     width: 56,
     height: 56,
-    backgroundColor: "#6C63FF",
     borderRadius: 16,
     justifyContent: "center",
     alignItems: "center",
@@ -292,6 +316,7 @@ const styles = StyleSheet.create({
   },
   logoText: {
     fontSize: 28,
+    fontFamily: "OpenDyslexic",
     fontWeight: "bold",
     color: "#394693",
     marginLeft: 10,
@@ -311,6 +336,7 @@ const styles = StyleSheet.create({
   },
   heroTitle: {
     fontSize: 48,
+    fontFamily: "OpenDyslexic",
     fontWeight: "bold",
     textAlign: "center",
     marginBottom: 10,
@@ -321,59 +347,6 @@ const styles = StyleSheet.create({
     color: "#666",
     textAlign: "center",
     lineHeight: 28,
-  },
-  mascotArea: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 40,
-  },
-  mascotButton: {
-    width: 200,
-    height: 200,
-    borderRadius: 100,
-    backgroundColor: "#AEE7F8",
-    justifyContent: "center",
-    alignItems: "center",
-    position: "relative",
-    shadowColor: "#000",
-    shadowOpacity: 0.2,
-    shadowRadius: 10,
-    elevation: 8,
-  },
-  mascotEmoji: {
-    fontSize: 100,
-  },
-  spinnerContainer: {
-    backgroundColor: "rgba(0,0,0,0.4)",
-    borderRadius: 100,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  greetingBox: {
-    backgroundColor: "#fff",
-    padding: 20,
-    borderRadius: 15,
-    marginTop: 20,
-    width: "90%",
-    shadowColor: "#000",
-    shadowOpacity: 0.1,
-    shadowRadius: 5,
-    elevation: 3,
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  greetingIconContainer: {
-    backgroundColor: "#6C63FF",
-    borderRadius: 20,
-    padding: 5,
-    marginRight: 10,
-  },
-  greetingText: {
-    fontSize: 16,
-    color: "#394693",
-    textAlign: "center",
-    flex: 1,
   },
   ctaButtonContainer: {
     width: "100%",
@@ -387,9 +360,7 @@ const styles = StyleSheet.create({
     borderRadius: 14,
     width: "80%",
     alignItems: "center",
-    flexDirection: "row",
     justifyContent: "center",
-    marginBottom: 10,
     shadowColor: "#000",
     shadowOpacity: 0.15,
     shadowRadius: 5,
@@ -400,10 +371,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
   },
-  ctaButtonContent: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
   sectionContainer: {
     marginBottom: 40,
   },
@@ -413,6 +380,7 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 28,
+    fontFamily: "OpenDyslexic",
     fontWeight: "bold",
     color: "#394693",
     marginBottom: 10,
@@ -424,12 +392,13 @@ const styles = StyleSheet.create({
     textAlign: "center",
     maxWidth: 600,
   },
-  powersGrid: {
+  featuresGrid: {
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "space-around",
+    paddingHorizontal: 10,
   },
-  powerCard: {
+  featureCard: {
     width: "30%",
     backgroundColor: "#fff",
     borderRadius: 20,
@@ -441,39 +410,35 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     elevation: 3,
   },
-  powerIconContainer: {
+  featureIconContainer: {
     marginBottom: 10,
   },
-  powerIcon: {
+  featureIcon: {
     fontSize: 50,
   },
-  powerTitle: {
+  featureTitle: {
     fontSize: 18,
+    fontFamily: "OpenDyslexic",
     fontWeight: "bold",
     color: "#394693",
     textAlign: "center",
   },
-  powerSubtitle: {
-    fontSize: 12,
-    color: "#6C63FF",
-    textAlign: "center",
-    marginBottom: 10,
-  },
-  powerDescription: {
+  featureDescription: {
     fontSize: 14,
     color: "#666",
     textAlign: "center",
   },
-  activitiesGrid: {
+  benefitsGrid: {
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "space-around",
+    paddingHorizontal: 10,
   },
-  activityCard: {
-    width: "22%",
+  benefitCard: {
+    width: "45%",
     backgroundColor: "#fff",
     borderRadius: 15,
-    padding: 10,
+    padding: 15,
     margin: 5,
     alignItems: "center",
     shadowColor: "#000",
@@ -481,40 +446,32 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     elevation: 3,
   },
-  activityIcon: {
+  benefitEmoji: {
     fontSize: 30,
     marginBottom: 5,
   },
-  activityTitle: {
+  benefitText: {
     fontSize: 14,
+    fontFamily: "OpenDyslexic",
     fontWeight: "bold",
     color: "#394693",
     textAlign: "center",
   },
-  activitySubtitle: {
-    fontSize: 10,
-    color: "#6C63FF",
-    textAlign: "center",
-  },
-  encouragementContainer: {
+  finalCtaCard: {
     backgroundColor: "#E3ECFB",
     borderRadius: 20,
     padding: 20,
     alignItems: "center",
   },
-  encouragementText: {
+  finalCtaText: {
     fontSize: 24,
+    fontFamily: "OpenDyslexic",
     fontWeight: "bold",
     color: "#394693",
-    marginBottom: 5,
-  },
-  encouragementSubtitle: {
-    fontSize: 16,
-    color: "#666",
-    marginBottom: 20,
+    marginBottom: 10,
     textAlign: "center",
   },
-  encouragementButton: {
+  finalCtaButton: {
     backgroundColor: "#FFD700",
     paddingVertical: 15,
     paddingHorizontal: 30,
@@ -524,7 +481,7 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     elevation: 3,
   },
-  encouragementButtonText: {
+  finalCtaButtonText: {
     color: "#394693",
     fontSize: 18,
     fontWeight: "bold",

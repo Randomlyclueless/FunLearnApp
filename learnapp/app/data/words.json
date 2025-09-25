@@ -1,0 +1,98 @@
+{
+    "A": [{
+            "word": "apple",
+            "image": "https://cdn.pixabay.com/photo/2016/07/16/16/16/apple-1522052_960_720.png",
+            "phonics": ["a", "p", "p", "l", "e"]
+        },
+        {
+            "word": "ant",
+            "image": "https://cdn.pixabay.com/photo/2013/07/12/18/59/ant-154046_960_720.png",
+            "phonics": ["a", "n", "t"]
+        },
+        {
+            "word": "airplane",
+            "image": "https://cdn.pixabay.com/photo/2013/07/13/10/07/aircraft-156734_960_720.png",
+            "phonics": ["a", "i", "r", "p", "l", "a", "n", "e"]
+        }
+    ],
+    "B": [{
+            "word": "ball",
+            "image": "https://cdn.pixabay.com/photo/2013/07/12/14/33/ball-148199_960_720.png",
+            "phonics": ["b", "a", "l", "l"]
+        },
+        {
+            "word": "butterfly",
+            "image": "https://cdn.pixabay.com/photo/2014/04/03/10/03/butterfly-309049_960_720.png",
+            "phonics": ["b", "u", "t", "t", "e", "r", "f", "l", "y"]
+        },
+        {
+            "word": "banana",
+            "image": "https://cdn.pixabay.com/photo/2016/07/21/08/58/bananas-1532152_960_720.png",
+            "phonics": ["b", "a", "n", "a", "n", "a"]
+        }
+    ],
+    "C": [{
+            "word": "cat",
+            "image": "https://cdn.pixabay.com/photo/2014/04/02/14/05/cat-306020_960_720.png",
+            "phonics": ["c", "a", "t"]
+        },
+        {
+            "word": "car",
+            "image": "https://cdn.pixabay.com/photo/2013/07/13/12/07/car-159085_960_720.png",
+            "phonics": ["c", "a", "r"]
+        },
+        {
+            "word": "cake",
+            "image": "https://cdn.pixabay.com/photo/2014/04/02/17/00/cake-307985_960_720.png",
+            "phonics": ["c", "a", "k", "e"]
+        }
+    ],
+    "D": [{
+            "word": "dog",
+            "image": "https://cdn.pixabay.com/photo/2013/07/12/17/47/dog-152684_960_720.png",
+            "phonics": ["d", "o", "g"]
+        },
+        {
+            "word": "duck",
+            "image": "https://cdn.pixabay.com/photo/2013/07/13/10/44/duck-157430_960_720.png",
+            "phonics": ["d", "u", "c", "k"]
+        },
+        {
+            "word": "dolphin",
+            "image": "https://cdn.pixabay.com/photo/2013/07/13/10/44/dolphin-157424_960_720.png",
+            "phonics": ["d", "o", "l", "p", "h", "i", "n"]
+        }
+    ],
+    "E": [{
+            "word": "elephant",
+            "image": "https://cdn.pixabay.com/photo/2013/07/12/17/47/elephant-152538_960_720.png",
+            "phonics": ["e", "l", "e", "p", "h", "a", "n", "t"]
+        },
+        {
+            "word": "egg",
+            "image": "https://cdn.pixabay.com/photo/2014/04/02/17/00/egg-307985_960_720.png",
+            "phonics": ["e", "g", "g"]
+        },
+        {
+            "word": "eagle",
+            "image": "https://cdn.pixabay.com/photo/2014/04/02/14/05/eagle-306020_960_720.png",
+            "phonics": ["e", "a", "g", "l", "e"]
+        }
+    ],
+    "F": [{
+            "word": "fish",
+            "image": "https://cdn.pixabay.com/photo/2013/07/12/17/47/fish-152543_960_720.png",
+            "phonics": ["f", "i", "s", "h"]
+        },
+        {
+            "word": "flower",
+            "image": "https://cdn.pixabay.com/photo/2014/04/02/17/00/flower-307985_960_720.png",
+            "phonics": ["f", "l", "o", "w", "e", "r"]
+        },
+        {
+            "word": "frog",
+            "image": "https://cdn.pixabay.com/photo/2013/07/12/17/47/frog-152558_960_720.png",
+            "phonics": ["f", "r", "o", "g"]
+        }
+    ]
+}
