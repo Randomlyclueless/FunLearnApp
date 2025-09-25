@@ -288,7 +288,7 @@ export default function WelcomeScreen() {
             </TouchableOpacity>
           </Animatable.View>
 
-          <Animatable.View
+          {/* <Animatable.View
             animation="slideInRight"
             delay={1600}
             duration={1000}
@@ -320,12 +320,12 @@ export default function WelcomeScreen() {
                 <Text style={WelcomeStyles.arrow}>➡️</Text>
               </LinearGradient>
             </TouchableOpacity>
-          </Animatable.View>
+          </Animatable.View> */}
 
           <Animatable.View animation="slideInLeft" delay={1800} duration={1000}>
             <TouchableOpacity
               style={WelcomeStyles.mainActionButton}
-              onPress={() => handleButtonPress("/(tabs)/writing")}
+              onPress={() => handleButtonPress("/(tabs)/words")}
               activeOpacity={0.7}
             >
               <LinearGradient
@@ -394,7 +394,7 @@ export default function WelcomeScreen() {
 
             <TouchableOpacity
               style={WelcomeStyles.toolButton}
-              onPress={() => handleButtonPress("/(tabs)/settings")}
+              onPress={() => handleButtonPress("/settings")}
               activeOpacity={0.8}
             >
               <Animatable.Text

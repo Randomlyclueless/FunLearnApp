@@ -13,142 +13,22 @@ import { useRouter } from "expo-router";
 import * as Animatable from "react-native-animatable";
 import { LinearGradient } from "expo-linear-gradient";
 import * as Speech from "expo-speech";
+import { useFonts } from "expo-font";
+import wordsData from "../data/words.json";
 
 const { width } = Dimensions.get("window");
-
-// Define types for better TypeScript support
-interface WordItem {
-  word: string;
-  image: string;
-  phonics: string[];
-}
-
-interface WordsData {
-  [key: string]: WordItem[];
-}
-
-// Enhanced words data organized by alphabet
-const wordsData: WordsData = {
-  A: [
-    {
-      word: "apple",
-      image:
-        "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?w=300&h=200&fit=crop",
-      phonics: ["a", "p", "p", "l", "e"],
-    },
-    {
-      word: "ant",
-      image:
-        "https://images.unsplash.com/photo-1544717297-fa95b6ee9643?w=300&h=200&fit=crop",
-      phonics: ["a", "n", "t"],
-    },
-    {
-      word: "airplane",
-      image:
-        "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=300&h=200&fit=crop",
-      phonics: ["a", "i", "r", "p", "l", "a", "n", "e"],
-    },
-  ],
-  B: [
-    {
-      word: "ball",
-      image:
-        "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=300&h=200&fit=crop",
-      phonics: ["b", "a", "l", "l"],
-    },
-    {
-      word: "butterfly",
-      image:
-        "https://images.unsplash.com/photo-1444464666168-49d633b86797?w=300&h=200&fit=crop",
-      phonics: ["b", "u", "t", "t", "e", "r", "f", "l", "y"],
-    },
-    {
-      word: "banana",
-      image:
-        "https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=300&h=200&fit=crop",
-      phonics: ["b", "a", "n", "a", "n", "a"],
-    },
-  ],
-  C: [
-    {
-      word: "cat",
-      image:
-        "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=300&h=200&fit=crop",
-      phonics: ["c", "a", "t"],
-    },
-    {
-      word: "car",
-      image:
-        "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=300&h=200&fit=crop",
-      phonics: ["c", "a", "r"],
-    },
-    {
-      word: "cake",
-      image:
-        "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=300&h=200&fit=crop",
-      phonics: ["c", "a", "k", "e"],
-    },
-  ],
-  D: [
-    {
-      word: "dog",
-      image:
-        "https://images.unsplash.com/photo-1552053831-71594a27632d?w=300&h=200&fit=crop",
-      phonics: ["d", "o", "g"],
-    },
-    {
-      word: "duck",
-      image:
-        "https://images.unsplash.com/photo-1518537123985-74be8ec5388c?w=300&h=200&fit=crop",
-      phonics: ["d", "u", "c", "k"],
-    },
-    {
-      word: "dolphin",
-      image:
-        "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=300&h=200&fit=crop",
-      phonics: ["d", "o", "l", "p", "h", "i", "n"],
-    },
-  ],
-  E: [
-    {
-      word: "elephant",
-      image:
-        "https://images.unsplash.com/photo-1564760055775-d63b17a55c44?w=300&h=200&fit=crop",
-      phonics: ["e", "l", "e", "p", "h", "a", "n", "t"],
-    },
-    {
-      word: "egg",
-      image:
-        "https://images.unsplash.com/photo-1518569656558-1f25e69d93d7?w=300&h=200&fit=crop",
-      phonics: ["e", "g", "g"],
-    },
-    {
-      word: "eagle",
-      image:
-        "https://images.unsplash.com/photo-1520637836862-4d197d17c46a?w=300&h=200&fit=crop",
-      phonics: ["e", "a", "g", "l", "e"],
-    },
-  ],
-  // Add more letters as needed...
-};
-
 const alphabets = Object.keys(wordsData);
 
 export default function WordsScreen() {
   const router = useRouter();
   const [currentAlphabet, setCurrentAlphabet] = useState("A");
-  const [currentWordIndex, setCurrentWordIndex] = useState(0);
-  const [currentWord, setCurrentWord] = useState(wordsData["A"][0]);
   const [isSpelling, setIsSpelling] = useState(false);
   const [currentPhoneticIndex, setCurrentPhoneticIndex] = useState(-1);
+  const [spellingWordId, setSpellingWordId] = useState<string | null>(null);
 
-  useEffect(() => {
-    const currentWords = wordsData[currentAlphabet as keyof WordsData] || [];
-    if (currentWords.length > 0) {
-      setCurrentWord(currentWords[currentWordIndex]);
-      speakWord(currentWords[currentWordIndex].word);
-    }
-  }, [currentAlphabet, currentWordIndex]);
+  const [fontsLoaded] = useFonts({
+    OpenDyslexic: require("../../assets/fonts/OpenDyslexic3-Bold.ttf"),
+  });
 
   const speakWord = (wordToSpeak: string) => {
     Speech.speak(wordToSpeak, {
@@ -157,74 +37,68 @@ export default function WordsScreen() {
     });
   };
 
-  const speakLetter = (letter: string) => {
+  const speakLetter = (letter: string, onDone?: () => void) => {
+    // --- FIX 1: Debounce speak call and use onDone callback for syncing ---
     Speech.speak(letter, {
       language: "en-US",
       rate: 0.6,
+      onDone: onDone,
     });
   };
 
-  const handleSpellWord = async () => {
+  const handleSpellWord = async (wordItem: any, wordIndex: number) => {
+    if (isSpelling) return; // Prevent multiple calls
+
     setIsSpelling(true);
+    const uniqueWordId = `${currentAlphabet}-${wordIndex}`;
+    setSpellingWordId(uniqueWordId);
     setCurrentPhoneticIndex(-1);
 
-    // First say "Let's spell"
-    Speech.speak("Let's spell " + currentWord.word, {
+    Speech.speak("Let's spell " + wordItem.word, {
       language: "en-US",
       rate: 0.8,
-    });
-
-    // Wait a moment, then spell each letter
-    setTimeout(() => {
-      currentWord.phonics.forEach((letter, index) => {
-        setTimeout(() => {
-          setCurrentPhoneticIndex(index);
-          speakLetter(letter);
-
-          // Reset highlighting after last letter
-          if (index === currentWord.phonics.length - 1) {
-            setTimeout(() => {
-              setCurrentPhoneticIndex(-1);
-              setIsSpelling(false);
-              // Say the complete word again
-              setTimeout(() => speakWord(currentWord.word), 500);
-            }, 800);
+      onDone: () => {
+        let i = 0;
+        const spellNextLetter = () => {
+          if (i < wordItem.phonics.length) {
+            setCurrentPhoneticIndex(i);
+            speakLetter(wordItem.phonics[i], () => {
+              i++;
+              spellNextLetter();
+            });
+          } else {
+            // Finished spelling
+            setCurrentPhoneticIndex(-1);
+            setIsSpelling(false);
+            setSpellingWordId(null);
+            setTimeout(() => speakWord(wordItem.word), 500);
           }
-        }, index * 1200);
-      });
-    }, 1500);
-  };
-
-  const handleNextWord = () => {
-    const currentWords = wordsData[currentAlphabet as keyof WordsData] || [];
-    setCurrentWordIndex((prevIndex) =>
-      prevIndex < currentWords.length - 1 ? prevIndex + 1 : 0
-    );
+        };
+        spellNextLetter();
+      },
+    });
   };
 
   const handleAlphabetChange = (alphabet: string) => {
     setCurrentAlphabet(alphabet);
-    setCurrentWordIndex(0);
   };
 
-  const renderPhonics = () => {
-    return currentWord.phonics.map((letter, index) => (
+  const renderPhonics = (wordItem: any, wordIndex: number) => {
+    const uniqueWordId = `${currentAlphabet}-${wordIndex}`;
+    return wordItem.phonics.map((letter: string, index: number) => (
       <Animatable.Text
         key={index}
-        animation={currentPhoneticIndex === index ? "pulse" : undefined}
-        style={{
-          fontSize: 40,
-          fontWeight: "bold",
-          marginHorizontal: 8,
-          color: currentPhoneticIndex === index ? "#FF6B6B" : "#394693",
-          backgroundColor:
-            currentPhoneticIndex === index ? "#FFE5E5" : "transparent",
-          paddingHorizontal: 12,
-          paddingVertical: 8,
-          borderRadius: 12,
-          minWidth: 50,
-          textAlign: "center",
-        }}
+        animation={
+          spellingWordId === uniqueWordId && currentPhoneticIndex === index
+            ? "pulse"
+            : undefined
+        }
+        style={[
+          styles.phoneticLetter,
+          spellingWordId === uniqueWordId &&
+            currentPhoneticIndex === index &&
+            styles.phoneticLetterActive,
+        ]}
         onPress={() => speakLetter(letter)}
       >
         {letter.toUpperCase()}
@@ -237,28 +111,23 @@ export default function WordsScreen() {
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
-        style={{ marginBottom: 20 }}
-        contentContainerStyle={{ paddingHorizontal: 20 }}
+        style={styles.alphabetSelectorScroll}
+        contentContainerStyle={styles.alphabetSelectorContainer}
       >
         {alphabets.map((alphabet) => (
           <TouchableOpacity
             key={alphabet}
             onPress={() => handleAlphabetChange(alphabet)}
-            style={{
-              backgroundColor:
-                currentAlphabet === alphabet ? "#6C63FF" : "#E5E7EB",
-              paddingHorizontal: 16,
-              paddingVertical: 10,
-              borderRadius: 20,
-              marginHorizontal: 4,
-            }}
+            style={[
+              styles.alphabetButton,
+              currentAlphabet === alphabet && styles.alphabetButtonActive,
+            ]}
           >
             <Text
-              style={{
-                color: currentAlphabet === alphabet ? "#fff" : "#374151",
-                fontSize: 18,
-                fontWeight: "bold",
-              }}
+              style={[
+                styles.alphabetButtonText,
+                currentAlphabet === alphabet && styles.alphabetButtonTextActive,
+              ]}
             >
               {alphabet}
             </Text>
@@ -268,178 +137,248 @@ export default function WordsScreen() {
     );
   };
 
+  if (!fontsLoaded) {
+    return null;
+  }
+
+  const currentWords =
+    wordsData[currentAlphabet as keyof typeof wordsData] || [];
+
   return (
-    <ScrollView style={{ flex: 1, backgroundColor: "#F8FAFC" }}>
-      {/* Header */}
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: "center",
-          padding: 24,
-          paddingTop: 50,
-        }}
-      >
+    <ScrollView style={styles.container}>
+      <View style={styles.header}>
         <TouchableOpacity onPress={() => router.back()}>
           <Text style={{ fontSize: 30 }}>⬅️</Text>
         </TouchableOpacity>
-        <Text style={{ fontSize: 24, fontWeight: "bold", color: "#1F2937" }}>
-          Learn Words
-        </Text>
+        <Text style={styles.headerTitle}>Word Explorer</Text>
         <View style={{ width: 30 }} />
       </View>
 
-      {/* Alphabet Selector */}
       {renderAlphabetSelector()}
 
-      {/* Main Content */}
-      <View style={{ alignItems: "center", paddingHorizontal: 24 }}>
-        {/* Current Letter Display */}
+      <View style={styles.mainContent}>
         <Animatable.Text
           animation="bounceIn"
           duration={800}
-          style={{
-            fontSize: 80,
-            fontWeight: "bold",
-            color: "#6C63FF",
-            marginBottom: 10,
-          }}
+          style={styles.currentLetterTitle}
         >
           {currentAlphabet}
         </Animatable.Text>
 
-        {/* Word Display */}
-        <Animatable.Text
-          animation="zoomIn"
-          duration={800}
-          style={{
-            fontSize: 36,
-            fontWeight: "bold",
-            color: "#1F2937",
-            marginBottom: 20,
-            textAlign: "center",
-          }}
-        >
-          {currentWord.word.toUpperCase()}
-        </Animatable.Text>
-
-        {/* Image Display */}
-        <Animatable.View
-          animation="fadeIn"
-          duration={1000}
-          style={{
-            borderRadius: 20,
-            overflow: "hidden",
-            marginBottom: 30,
-            shadowColor: "#000",
-            shadowOpacity: 0.1,
-            shadowRadius: 10,
-            elevation: 5,
-          }}
-        >
-          <Image
-            source={{ uri: currentWord.image }}
-            style={{
-              width: width - 48,
-              height: 240,
-            }}
-            resizeMode="cover"
-          />
-        </Animatable.View>
-
-        {/* Phonics Display */}
-        <Animatable.View
-          animation="fadeInUp"
-          delay={300}
-          style={{
-            flexDirection: "row",
-            flexWrap: "wrap",
-            justifyContent: "center",
-            backgroundColor: "#fff",
-            borderRadius: 20,
-            padding: 20,
-            marginBottom: 30,
-            shadowColor: "#000",
-            shadowOpacity: 0.1,
-            shadowRadius: 8,
-            elevation: 4,
-            width: "100%",
-          }}
-        >
-          {renderPhonics()}
-        </Animatable.View>
-
-        {/* Action Buttons */}
-        <View style={{ width: "100%", gap: 15 }}>
-          <TouchableOpacity
-            style={{
-              backgroundColor: "#10B981",
-              paddingVertical: 16,
-              borderRadius: 16,
-              alignItems: "center",
-              shadowColor: "#000",
-              shadowOpacity: 0.1,
-              shadowRadius: 5,
-              elevation: 3,
-            }}
-            onPress={handleSpellWord}
-            disabled={isSpelling}
+        {currentWords.map((wordItem, index) => (
+          <Animatable.View
+            key={index}
+            animation="zoomIn"
+            duration={800}
+            style={styles.wordCard}
           >
-            <Text style={{ color: "#fff", fontSize: 18, fontWeight: "bold" }}>
-              {isSpelling ? "Spelling..." : "🔤 Spell Word"}
-            </Text>
-          </TouchableOpacity>
+            <Animatable.Image
+              animation="fadeIn"
+              duration={1000}
+              source={{ uri: wordItem.image }}
+              style={styles.wordImage}
+              resizeMode="contain"
+              onError={(e) =>
+                console.log("Image failed to load", e.nativeEvent.error)
+              }
+            />
 
-          <TouchableOpacity
-            style={{
-              backgroundColor: "#6C63FF",
-              paddingVertical: 16,
-              borderRadius: 16,
-              alignItems: "center",
-              shadowColor: "#000",
-              shadowOpacity: 0.1,
-              shadowRadius: 5,
-              elevation: 3,
-            }}
-            onPress={() => speakWord(currentWord.word)}
-          >
-            <Text style={{ color: "#fff", fontSize: 18, fontWeight: "bold" }}>
-              🔊 Say Word
-            </Text>
-          </TouchableOpacity>
+            <Animatable.Text
+              animation="pulse"
+              iterationCount="infinite"
+              duration={2000}
+              style={styles.wordTitle}
+            >
+              {wordItem.word.toUpperCase()}
+            </Animatable.Text>
 
-          <TouchableOpacity
-            style={{
-              backgroundColor: "#F59E0B",
-              paddingVertical: 16,
-              borderRadius: 16,
-              alignItems: "center",
-              shadowColor: "#000",
-              shadowOpacity: 0.1,
-              shadowRadius: 5,
-              elevation: 3,
-            }}
-            onPress={handleNextWord}
-          >
-            <Text style={{ color: "#fff", fontSize: 18, fontWeight: "bold" }}>
-              ➡️ Next Word
-            </Text>
-          </TouchableOpacity>
-        </View>
+            <Animatable.View
+              animation="fadeInUp"
+              delay={300}
+              style={styles.phoneticsContainer}
+            >
+              {renderPhonics(wordItem, index)}
+            </Animatable.View>
 
-        {/* Word Counter */}
-        <Text
-          style={{
-            marginTop: 20,
-            color: "#6B7280",
-            fontSize: 16,
-            marginBottom: 40,
-          }}
-        >
-          Word {currentWordIndex + 1} of{" "}
-          {(wordsData[currentAlphabet as keyof WordsData] || []).length}
-        </Text>
+            <View style={styles.actionButtonsRow}>
+              <TouchableOpacity
+                style={styles.actionButton}
+                onPress={() => handleSpellWord(wordItem, index)}
+                disabled={
+                  isSpelling && spellingWordId === `${currentAlphabet}-${index}`
+                }
+              >
+                <LinearGradient
+                  colors={
+                    isSpelling &&
+                    spellingWordId === `${currentAlphabet}-${index}`
+                      ? ["#E5E7EB", "#E5E7EB"]
+                      : ["#FFD700", "#FFB000"]
+                  }
+                  style={styles.buttonGradient}
+                >
+                  <Text style={styles.actionButtonText}>
+                    {isSpelling &&
+                    spellingWordId === `${currentAlphabet}-${index}`
+                      ? "Spelling..."
+                      : "Spell Word 🔤"}
+                  </Text>
+                </LinearGradient>
+              </TouchableOpacity>
+            </View>
+
+            <View style={styles.actionButtonsRow}>
+              <TouchableOpacity
+                onPress={() => speakWord(wordItem.word)}
+                style={styles.actionButton}
+              >
+                <LinearGradient
+                  colors={["#6C63FF", "#800080"]}
+                  style={styles.buttonGradient}
+                >
+                  <Text style={styles.actionButtonText}>Hear Full Word 🔊</Text>
+                </LinearGradient>
+              </TouchableOpacity>
+            </View>
+          </Animatable.View>
+        ))}
       </View>
     </ScrollView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#F8FAFC",
+  },
+  header: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: 24,
+    paddingTop: 50,
+  },
+  headerTitle: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "#1F2937",
+    fontFamily: "OpenDyslexic",
+  },
+  alphabetSelectorScroll: {
+    marginBottom: 20,
+  },
+  alphabetSelectorContainer: {
+    paddingHorizontal: 20,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  alphabetButton: {
+    backgroundColor: "#E5E7EB",
+    paddingHorizontal: 16,
+    paddingVertical: 10,
+    borderRadius: 20,
+    marginHorizontal: 4,
+    shadowColor: "#000",
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+    elevation: 2,
+  },
+  alphabetButtonActive: {
+    backgroundColor: "#6C63FF",
+  },
+  alphabetButtonText: {
+    color: "#374151",
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  alphabetButtonTextActive: {
+    color: "#fff",
+  },
+  mainContent: {
+    alignItems: "center",
+    paddingHorizontal: 24,
+    marginBottom: 40,
+  },
+  currentLetterTitle: {
+    fontSize: 80,
+    fontWeight: "bold",
+    color: "#6C63FF",
+    marginBottom: 20,
+  },
+  wordCard: {
+    backgroundColor: "#fff",
+    borderRadius: 20,
+    padding: 20,
+    width: "100%",
+    shadowColor: "#000",
+    shadowOpacity: 0.15,
+    shadowRadius: 8,
+    elevation: 5,
+    alignItems: "center",
+    marginBottom: 20,
+  },
+  wordImage: {
+    width: width - 88,
+    height: 180,
+    borderRadius: 12,
+    marginBottom: 15,
+    borderColor: "#E5E7EB",
+    borderWidth: 2,
+  },
+  wordTitle: {
+    fontSize: 36,
+    fontWeight: "bold",
+    color: "#394693",
+    marginBottom: 15,
+    fontFamily: "OpenDyslexic",
+  },
+  phoneticsContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    backgroundColor: "#F8FAFC",
+    borderRadius: 12,
+    padding: 10,
+    marginBottom: 15,
+  },
+  phoneticLetter: {
+    fontSize: 28,
+    fontWeight: "bold",
+    marginHorizontal: 4,
+    color: "#394693",
+    fontFamily: "OpenDyslexic",
+    backgroundColor: "#E5E7EB",
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 8,
+    minWidth: 45,
+    textAlign: "center",
+  },
+  phoneticLetterActive: {
+    backgroundColor: "#FF6B6B",
+    color: "#fff",
+  },
+  actionButtonsRow: {
+    width: "100%",
+    marginBottom: 15,
+  },
+  actionButton: {
+    borderRadius: 16,
+    overflow: "hidden",
+    shadowColor: "#000",
+    shadowOpacity: 0.15,
+    shadowRadius: 5,
+    elevation: 3,
+  },
+  buttonGradient: {
+    paddingVertical: 18,
+    alignItems: "center",
+  },
+  actionButtonText: {
+    color: "#fff",
+    fontSize: 18,
+    fontWeight: "bold",
+    fontFamily: "OpenDyslexic",
+  },
+});
