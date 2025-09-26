@@ -1,0 +1,64 @@
+[{
+        "name": "triangle",
+        "type": "shape",
+        "image": "triangle.png",
+        "description": "A pointy shape with 3 sides - perfect for making mountains and pizza slices!",
+        "sides": 3,
+        "angles": 3,
+        "funFact": "Triangles are super strong! That's why bridges use them."
+    },
+    {
+        "name": "square",
+        "type": "shape",
+        "image": "square.png",
+        "description": "A perfect box shape with 4 equal sides - like a window or a chocolate bar!",
+        "sides": 4,
+        "angles": 4,
+        "funFact": "Squares are great for building blocks because they stack so nicely!"
+    },
+    {
+        "name": "circle",
+        "type": "shape",
+        "image": "circle.png",
+        "description": "A round, rolly shape with no corners - like a ball or a cookie!",
+        "sides": 0,
+        "angles": 0,
+        "funFact": "Circles can roll forever! That's why wheels are circular."
+    },
+    {
+        "name": "star",
+        "type": "shape",
+        "image": "star.png",
+        "description": "A twinkly shape with pointy arms - just like stars in the night sky!",
+        "sides": 10,
+        "angles": 10,
+        "funFact": "Stars in the sky are actually giant balls of gas, not pointy shapes!"
+    },
+    {
+        "name": "heart",
+        "type": "shape",
+        "image": "heart.png",
+        "description": "A lovey shape that means you care - perfect for Valentine's day!",
+        "sides": 0,
+        "angles": 0,
+        "funFact": "Hearts are the symbol of love all around the world!"
+    },
+    {
+        "name": "oval",
+        "type": "shape",
+        "image": "oval.png",
+        "description": "A stretched-out circle - like an egg or a racing track!",
+        "sides": 0,
+        "angles": 0,
+        "funFact": "Eggs are oval so they don't roll out of bird nests easily!"
+    },
+    {
+        "name": "rectangle",
+        "type": "shape",
+        "image": "rectangle.png",
+        "description": "A long box shape - perfect for doors, books, and smartphones!",
+        "sides": 4,
+        "angles": 4,
+        "funFact": "Most screens you look at are rectangles!"
+    }
+]

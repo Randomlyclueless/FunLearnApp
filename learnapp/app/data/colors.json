@@ -1,0 +1,49 @@
+[{
+        "name": "red",
+        "colorCode": "#FF0000",
+        "description": "A warm, bright color like apples and fire trucks!",
+        "funFact": "Red is the first color babies can see!"
+    },
+    {
+        "name": "blue",
+        "colorCode": "#0000FF",
+        "description": "A cool, calm color like the sky and ocean!",
+        "funFact": "Blue is the world's favorite color!"
+    },
+    {
+        "name": "green",
+        "colorCode": "#00FF00",
+        "description": "A fresh, natural color like grass and leaves!",
+        "funFact": "Green means 'go' in traffic lights!"
+    },
+    {
+        "name": "yellow",
+        "colorCode": "#FFFF00",
+        "description": "A sunny, happy color like the sun and bananas!",
+        "funFact": "Yellow is the most visible color from far away!"
+    },
+    {
+        "name": "orange",
+        "colorCode": "#FFA500",
+        "description": "A bright, energetic color like oranges and carrots!",
+        "funFact": "Orange is named after the fruit!"
+    },
+    {
+        "name": "purple",
+        "colorCode": "#800080",
+        "description": "A royal, magical color like grapes and lavender!",
+        "funFact": "Purple was once the most expensive color!"
+    },
+    {
+        "name": "pink",
+        "colorCode": "#FFC0CB",
+        "description": "A sweet, gentle color like cotton candy and flowers!",
+        "funFact": "Pink has a calming effect on people!"
+    },
+    {
+        "name": "brown",
+        "colorCode": "#A52A2A",
+        "description": "An earthy, cozy color like chocolate and tree trunks!",
+        "funFact": "Brown is the color of chocolate!"
+    }
+]

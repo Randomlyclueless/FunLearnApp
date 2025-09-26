@@ -1,0 +1,601 @@
+[{
+        "id": 1,
+        "number": "1",
+        "spelling": "One",
+        "image": "https://i.imgur.com/rQ0J0tU.png"
+    },
+    {
+        "id": 2,
+        "number": "2",
+        "spelling": "Two",
+        "image": "https://i.imgur.com/R3x3fD8.png"
+    },
+    {
+        "id": 3,
+        "number": "3",
+        "spelling": "Three",
+        "image": "https://i.imgur.com/L4G9m6H.png"
+    },
+    {
+        "id": 4,
+        "number": "4",
+        "spelling": "Four",
+        "image": "https://i.imgur.com/2Y4P1gT.png"
+    },
+    {
+        "id": 5,
+        "number": "5",
+        "spelling": "Five",
+        "image": "https://i.imgur.com/dK5zY7d.png"
+    },
+    {
+        "id": 6,
+        "number": "6",
+        "spelling": "Six",
+        "image": "https://i.imgur.com/Q2d4B0n.png"
+    },
+    {
+        "id": 7,
+        "number": "7",
+        "spelling": "Seven",
+        "image": "https://i.imgur.com/o1b0c0o.png"
+    },
+    {
+        "id": 8,
+        "number": "8",
+        "spelling": "Eight",
+        "image": "https://i.imgur.com/9nJ9Z9v.png"
+    },
+    {
+        "id": 9,
+        "number": "9",
+        "spelling": "Nine",
+        "image": "https://i.imgur.com/K7D7Q3o.png"
+    },
+    {
+        "id": 10,
+        "number": "10",
+        "spelling": "Ten",
+        "image": "https://i.imgur.com/f0W0f0G.png"
+    },
+    {
+        "id": 11,
+        "number": "11",
+        "spelling": "Eleven",
+        "image": "https://i.imgur.com/J8T0z6d.png"
+    },
+    {
+        "id": 12,
+        "number": "12",
+        "spelling": "Twelve",
+        "image": "https://i.imgur.com/L7X1e7u.png"
+    },
+    {
+        "id": 13,
+        "number": "13",
+        "spelling": "Thirteen",
+        "image": "https://i.imgur.com/W2q2b2N.png"
+    },
+    {
+        "id": 14,
+        "number": "14",
+        "spelling": "Fourteen",
+        "image": "https://i.imgur.com/P5r5c5M.png"
+    },
+    {
+        "id": 15,
+        "number": "15",
+        "spelling": "Fifteen",
+        "image": "https://i.imgur.com/Z1h1j1B.png"
+    },
+    {
+        "id": 16,
+        "number": "16",
+        "spelling": "Sixteen",
+        "image": "https://i.imgur.com/X8e8f8S.png"
+    },
+    {
+        "id": 17,
+        "number": "17",
+        "spelling": "Seventeen",
+        "image": "https://i.imgur.com/B9c9d9Y.png"
+    },
+    {
+        "id": 18,
+        "number": "18",
+        "spelling": "Eighteen",
+        "image": "https://i.imgur.com/M0k0l0P.png"
+    },
+    {
+        "id": 19,
+        "number": "19",
+        "spelling": "Nineteen",
+        "image": "https://i.imgur.com/V7w7x7Q.png"
+    },
+    {
+        "id": 20,
+        "number": "20",
+        "spelling": "Twenty",
+        "image": "https://i.imgur.com/S4t4u4X.png"
+    },
+    {
+        "id": 21,
+        "number": "21",
+        "spelling": "Twenty-One",
+        "image": "https://i.imgur.com/J1k1l1O.png"
+    },
+    {
+        "id": 22,
+        "number": "22",
+        "spelling": "Twenty-Two",
+        "image": "https://i.imgur.com/N3o3p3R.png"
+    },
+    {
+        "id": 23,
+        "number": "23",
+        "spelling": "Twenty-Three",
+        "image": "https://i.imgur.com/Q5s5t5V.png"
+    },
+    {
+        "id": 24,
+        "number": "24",
+        "spelling": "Twenty-Four",
+        "image": "https://i.imgur.com/T7v7w7Z.png"
+    },
+    {
+        "id": 25,
+        "number": "25",
+        "spelling": "Twenty-Five",
+        "image": "https://i.imgur.com/C9x9y9A.png"
+    },
+    {
+        "id": 26,
+        "number": "26",
+        "spelling": "Twenty-Six",
+        "image": "https://i.imgur.com/E1z1a1C.png"
+    },
+    {
+        "id": 27,
+        "number": "27",
+        "spelling": "Twenty-Seven",
+        "image": "https://i.imgur.com/G3b3c3E.png"
+    },
+    {
+        "id": 28,
+        "number": "28",
+        "spelling": "Twenty-Eight",
+        "image": "https://i.imgur.com/I5d5e5G.png"
+    },
+    {
+        "id": 29,
+        "number": "29",
+        "spelling": "Twenty-Nine",
+        "image": "https://i.imgur.com/K7f7g7I.png"
+    },
+    {
+        "id": 30,
+        "number": "30",
+        "spelling": "Thirty",
+        "image": "https://i.imgur.com/M9h9i9K.png"
+    },
+    {
+        "id": 31,
+        "number": "31",
+        "spelling": "Thirty-One",
+        "image": "https://i.imgur.com/O0j0k0L.png"
+    },
+    {
+        "id": 32,
+        "number": "32",
+        "spelling": "Thirty-Two",
+        "image": "https://i.imgur.com/Q2l2m2N.png"
+    },
+    {
+        "id": 33,
+        "number": "33",
+        "spelling": "Thirty-Three",
+        "image": "https://i.imgur.com/S4n4o4P.png"
+    },
+    {
+        "id": 34,
+        "number": "34",
+        "spelling": "Thirty-Four",
+        "image": "https://i.imgur.com/U6p6q6R.png"
+    },
+    {
+        "id": 35,
+        "number": "35",
+        "spelling": "Thirty-Five",
+        "image": "https://i.imgur.com/W8r8s8T.png"
+    },
+    {
+        "id": 36,
+        "number": "36",
+        "spelling": "Thirty-Six",
+        "image": "https://i.imgur.com/Y0t0u0V.png"
+    },
+    {
+        "id": 37,
+        "number": "37",
+        "spelling": "Thirty-Seven",
+        "image": "https://i.imgur.com/a2v2w2X.png"
+    },
+    {
+        "id": 38,
+        "number": "38",
+        "spelling": "Thirty-Eight",
+        "image": "https://i.imgur.com/c4x4y4Z.png"
+    },
+    {
+        "id": 39,
+        "number": "39",
+        "spelling": "Thirty-Nine",
+        "image": "https://i.imgur.com/e6z6a6B.png"
+    },
+    {
+        "id": 40,
+        "number": "40",
+        "spelling": "Forty",
+        "image": "https://i.imgur.com/g8b8c8D.png"
+    },
+    {
+        "id": 41,
+        "number": "41",
+        "spelling": "Forty-One",
+        "image": "https://i.imgur.com/i0d0e0F.png"
+    },
+    {
+        "id": 42,
+        "number": "42",
+        "spelling": "Forty-Two",
+        "image": "https://i.imgur.com/k2f2g2H.png"
+    },
+    {
+        "id": 43,
+        "number": "43",
+        "spelling": "Forty-Three",
+        "image": "https://i.imgur.com/m4h4i4J.png"
+    },
+    {
+        "id": 44,
+        "number": "44",
+        "spelling": "Forty-Four",
+        "image": "https://i.imgur.com/o6j6k6L.png"
+    },
+    {
+        "id": 45,
+        "number": "45",
+        "spelling": "Forty-Five",
+        "image": "https://i.imgur.com/q8l8m8N.png"
+    },
+    {
+        "id": 46,
+        "number": "46",
+        "spelling": "Forty-Six",
+        "image": "https://i.imgur.com/s0n0o0P.png"
+    },
+    {
+        "id": 47,
+        "number": "47",
+        "spelling": "Forty-Seven",
+        "image": "https://i.imgur.com/u2p2q2R.png"
+    },
+    {
+        "id": 48,
+        "number": "48",
+        "spelling": "Forty-Eight",
+        "image": "https://i.imgur.com/w4r4s4T.png"
+    },
+    {
+        "id": 49,
+        "number": "49",
+        "spelling": "Forty-Nine",
+        "image": "https://i.imgur.com/y6t6u6V.png"
+    },
+    {
+        "id": 50,
+        "number": "50",
+        "spelling": "Fifty",
+        "image": "https://i.imgur.com/08w8x8Z.png"
+    },
+    {
+        "id": 51,
+        "number": "51",
+        "spelling": "Fifty-One",
+        "image": "https://i.imgur.com/10y0z0A.png"
+    },
+    {
+        "id": 52,
+        "number": "52",
+        "spelling": "Fifty-Two",
+        "image": "https://i.imgur.com/22a2b2C.png"
+    },
+    {
+        "id": 53,
+        "number": "53",
+        "spelling": "Fifty-Three",
+        "image": "https://i.imgur.com/34c4d4E.png"
+    },
+    {
+        "id": 54,
+        "number": "54",
+        "spelling": "Fifty-Four",
+        "image": "https://i.imgur.com/46e6f6G.png"
+    },
+    {
+        "id": 55,
+        "number": "55",
+        "spelling": "Fifty-Five",
+        "image": "https://i.imgur.com/58g8h8I.png"
+    },
+    {
+        "id": 56,
+        "number": "56",
+        "spelling": "Fifty-Six",
+        "image": "https://i.imgur.com/60i0j0K.png"
+    },
+    {
+        "id": 57,
+        "number": "57",
+        "spelling": "Fifty-Seven",
+        "image": "https://i.imgur.com/72k2l2M.png"
+    },
+    {
+        "id": 58,
+        "number": "58",
+        "spelling": "Fifty-Eight",
+        "image": "https://i.imgur.com/84m4n4O.png"
+    },
+    {
+        "id": 59,
+        "number": "59",
+        "spelling": "Fifty-Nine",
+        "image": "https://i.imgur.com/96o6p6Q.png"
+    },
+    {
+        "id": 60,
+        "number": "60",
+        "spelling": "Sixty",
+        "image": "https://i.imgur.com/08q8r8S.png"
+    },
+    {
+        "id": 61,
+        "number": "61",
+        "spelling": "Sixty-One",
+        "image": "https://i.imgur.com/10s0t0U.png"
+    },
+    {
+        "id": 62,
+        "number": "62",
+        "spelling": "Sixty-Two",
+        "image": "https://i.imgur.com/22u2v2W.png"
+    },
+    {
+        "id": 63,
+        "number": "63",
+        "spelling": "Sixty-Three",
+        "image": "https://i.imgur.com/34w4x4Y.png"
+    },
+    {
+        "id": 64,
+        "number": "64",
+        "spelling": "Sixty-Four",
+        "image": "https://i.imgur.com/46y6z6A.png"
+    },
+    {
+        "id": 65,
+        "number": "65",
+        "spelling": "Sixty-Five",
+        "image": "https://i.imgur.com/58a8b8C.png"
+    },
+    {
+        "id": 66,
+        "number": "66",
+        "spelling": "Sixty-Six",
+        "image": "https://i.imgur.com/60c0d0E.png"
+    },
+    {
+        "id": 67,
+        "number": "67",
+        "spelling": "Sixty-Seven",
+        "image": "https://i.imgur.com/72e2f2G.png"
+    },
+    {
+        "id": 68,
+        "number": "68",
+        "spelling": "Sixty-Eight",
+        "image": "https://i.imgur.com/84g4h4I.png"
+    },
+    {
+        "id": 69,
+        "number": "69",
+        "spelling": "Sixty-Nine",
+        "image": "https://i.imgur.com/96i6j6K.png"
+    },
+    {
+        "id": 70,
+        "number": "70",
+        "spelling": "Seventy",
+        "image": "https://i.imgur.com/08k8l8M.png"
+    },
+    {
+        "id": 71,
+        "number": "71",
+        "spelling": "Seventy-One",
+        "image": "https://i.imgur.com/10m0n0O.png"
+    },
+    {
+        "id": 72,
+        "number": "72",
+        "spelling": "Seventy-Two",
+        "image": "https://i.imgur.com/22o2p2Q.png"
+    },
+    {
+        "id": 73,
+        "number": "73",
+        "spelling": "Seventy-Three",
+        "image": "https://i.imgur.com/34q4r4S.png"
+    },
+    {
+        "id": 74,
+        "number": "74",
+        "spelling": "Seventy-Four",
+        "image": "https://i.imgur.com/46s6t6U.png"
+    },
+    {
+        "id": 75,
+        "number": "75",
+        "spelling": "Seventy-Five",
+        "image": "https://i.imgur.com/58u8v8W.png"
+    },
+    {
+        "id": 76,
+        "number": "76",
+        "spelling": "Seventy-Six",
+        "image": "https://i.imgur.com/60w0x0Y.png"
+    },
+    {
+        "id": 77,
+        "number": "77",
+        "spelling": "Seventy-Seven",
+        "image": "https://i.imgur.com/72y2z2A.png"
+    },
+    {
+        "id": 78,
+        "number": "78",
+        "spelling": "Seventy-Eight",
+        "image": "https://i.imgur.com/84a4b4C.png"
+    },
+    {
+        "id": 79,
+        "number": "79",
+        "spelling": "Seventy-Nine",
+        "image": "https://i.imgur.com/96c6d6E.png"
+    },
+    {
+        "id": 80,
+        "number": "80",
+        "spelling": "Eighty",
+        "image": "https://i.imgur.com/08e8f8G.png"
+    },
+    {
+        "id": 81,
+        "number": "81",
+        "spelling": "Eighty-One",
+        "image": "https://i.imgur.com/10g0h0I.png"
+    },
+    {
+        "id": 82,
+        "number": "82",
+        "spelling": "Eighty-Two",
+        "image": "https://i.imgur.com/22i2j2K.png"
+    },
+    {
+        "id": 83,
+        "number": "83",
+        "spelling": "Eighty-Three",
+        "image": "https://i.imgur.com/34k4l4M.png"
+    },
+    {
+        "id": 84,
+        "number": "84",
+        "spelling": "Eighty-Four",
+        "image": "https://i.imgur.com/46m4n4O.png"
+    },
+    {
+        "id": 85,
+        "number": "85",
+        "spelling": "Eighty-Five",
+        "image": "https://i.imgur.com/58o8p8Q.png"
+    },
+    {
+        "id": 86,
+        "number": "86",
+        "spelling": "Eighty-Six",
+        "image": "https://i.imgur.com/60q0r0S.png"
+    },
+    {
+        "id": 87,
+        "number": "87",
+        "spelling": "Eighty-Seven",
+        "image": "https://i.imgur.com/72s2t2U.png"
+    },
+    {
+        "id": 88,
+        "number": "88",
+        "spelling": "Eighty-Eight",
+        "image": "https://i.imgur.com/84u4v4W.png"
+    },
+    {
+        "id": 89,
+        "number": "89",
+        "spelling": "Eighty-Nine",
+        "image": "https://i.imgur.com/96w6x6Y.png"
+    },
+    {
+        "id": 90,
+        "number": "90",
+        "spelling": "Ninety",
+        "image": "https://i.imgur.com/08y8z8A.png"
+    },
+    {
+        "id": 91,
+        "number": "91",
+        "spelling": "Ninety-One",
+        "image": "https://i.imgur.com/10a0b0C.png"
+    },
+    {
+        "id": 92,
+        "number": "92",
+        "spelling": "Ninety-Two",
+        "image": "https://i.imgur.com/22c2d2E.png"
+    },
+    {
+        "id": 93,
+        "number": "93",
+        "spelling": "Ninety-Three",
+        "image": "https://i.imgur.com/34e4f4G.png"
+    },
+    {
+        "id": 94,
+        "number": "94",
+        "spelling": "Ninety-Four",
+        "image": "https://i.imgur.com/46g6h6I.png"
+    },
+    {
+        "id": 95,
+        "number": "95",
+        "spelling": "Ninety-Five",
+        "image": "https://i.imgur.com/58i8j8K.png"
+    },
+    {
+        "id": 96,
+        "number": "96",
+        "spelling": "Ninety-Six",
+        "image": "https://i.imgur.com/60k0l0M.png"
+    },
+    {
+        "id": 97,
+        "number": "97",
+        "spelling": "Ninety-Seven",
+        "image": "https://i.imgur.com/72m2n2O.png"
+    },
+    {
+        "id": 98,
+        "number": "98",
+        "spelling": "Ninety-Eight",
+        "image": "https://i.imgur.com/84o4p4Q.png"
+    },
+    {
+        "id": 99,
+        "number": "99",
+        "spelling": "Ninety-Nine",
+        "image": "https://i.imgur.com/96q6r6S.png"
+    },
+    {
+        "id": 100,
+        "number": "100",
+        "spelling": "One Hundred",
+        "image": "https://i.imgur.com/08s8t8U.png"
+    }
+]

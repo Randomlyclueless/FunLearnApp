@@ -9,15 +9,16 @@ import {
   Dimensions,
   Animated,
   Easing,
+  ActivityIndicator,
   StyleSheet,
   Platform,
 } from "react-native";
 import { useRouter, Href } from "expo-router";
-import { LinearGradient } from "expo-linear-gradient";
-import ConfettiCannon from "react-native-confetti-cannon";
+import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import * as Animatable from "react-native-animatable";
-import { useFonts } from "expo-font";
+import { LinearGradient } from "expo-linear-gradient";
+import ConfettiCannon from "react-native-confetti-cannon";
 
 import WelcomeStyles from "./components/WelcomeStyles";
 import StreakWelcome from "./components/StreakWelcome";
@@ -36,6 +37,7 @@ export default function WelcomeScreen() {
   const [showConfetti, setShowConfetti] = useState(false);
   const [bounceValue] = useState(new Animated.Value(1));
   const [spinValue] = useState(new Animated.Value(0));
+  const [audioEnabled, setAudioEnabled] = useState<boolean>(true);
 
   const [fontsLoaded] = useFonts({
     OpenDyslexic: require("../assets/fonts/OpenDyslexic3-Bold.ttf"),
@@ -94,41 +96,6 @@ export default function WelcomeScreen() {
     return null;
   }
 
-  const activities = [
-    { emoji: "📖", title: "Story Time", subtitle: "Read Together" },
-    { emoji: "🎵", title: "Letter Songs", subtitle: "Sing & Learn" },
-    { emoji: "✏️", title: "Write Letters", subtitle: "Practice Writing" },
-    { emoji: "🎯", title: "Fun Games", subtitle: "Play & Learn" },
-    { emoji: "🏆", title: "Earn Stars", subtitle: "Collect Rewards" },
-    { emoji: "🌟", title: "Daily Wins", subtitle: "Celebrate Success" },
-    { emoji: "📚", title: "Word Magic", subtitle: "Discover New Words" },
-    { emoji: "🎨", title: "Creative Fun", subtitle: "Draw & Color" },
-  ];
-
-  const powers = [
-    {
-      emoji: "🎤",
-      title: "I Can Talk & Listen!",
-      subtitle: "Like Your Best Friend",
-      description:
-        "I can hear what you say and talk back to you! I give you high-fives when you do great and help you when you need it. It's like having a super smart friend who's always there to cheer you on!",
-    },
-    {
-      emoji: "👁️",
-      title: "I Can See Your Writing!",
-      subtitle: "Magic Vision Powers",
-      description:
-        "I have special eyes that can watch you write letters! If you mix up 'b' and 'd' or 'p' and 'q', I'll gently help you fix it. It's like having a magical helper watching over your shoulder!",
-    },
-    {
-      emoji: "🧠",
-      title: "I Learn About You!",
-      subtitle: "Smart Brain That Cares",
-      description:
-        "The more we play together, the better I understand how you like to learn! I remember what makes you happy and what you find tricky, so I can make everything perfect just for you!",
-    },
-  ];
-
   return (
     <View style={WelcomeStyles.container}>
       <StatusBar backgroundColor="#FFF8E7" barStyle="dark-content" />
@@ -171,6 +138,11 @@ export default function WelcomeScreen() {
         contentContainerStyle={WelcomeStyles.scrollContainer}
         showsVerticalScrollIndicator={false}
       >
+        <Header
+          audioEnabled={audioEnabled}
+          onPressAudio={() => setAudioEnabled(!audioEnabled)}
+        />
+
         <Animatable.View
           style={WelcomeStyles.header}
           animation="fadeInDown"
@@ -261,7 +233,7 @@ export default function WelcomeScreen() {
           <Animatable.View animation="slideInLeft" delay={1400} duration={1000}>
             <TouchableOpacity
               style={WelcomeStyles.mainActionButton}
-              onPress={() => handleButtonPress("/(tabs)/reading")}
+              onPress={() => handleButtonPress("/(tabs)/words")}
               activeOpacity={0.7}
             >
               <LinearGradient
@@ -279,23 +251,25 @@ export default function WelcomeScreen() {
                 </Animatable.Text>
                 <View style={WelcomeStyles.buttonTextContainer}>
                   <Text style={WelcomeStyles.mainButtonText}>
-                    Learn Alphabets
+                    Word Explorer
                   </Text>
-                  <Text style={WelcomeStyles.mainButtonSubtitle}>✨</Text>
+                  <Text style={WelcomeStyles.mainButtonSubtitle}>
+                    Learn words with images! 🖼️
+                  </Text>
                 </View>
                 <Text style={WelcomeStyles.arrow}>➡️</Text>
               </LinearGradient>
             </TouchableOpacity>
           </Animatable.View>
 
-          {/* <Animatable.View
+          <Animatable.View
             animation="slideInRight"
             delay={1600}
             duration={1000}
           >
             <TouchableOpacity
               style={WelcomeStyles.mainActionButton}
-              onPress={() => handleButtonPress("/(tabs)/phonics")}
+              onPress={() => handleButtonPress("../(tabs)/colors")}
               activeOpacity={0.7}
             >
               <LinearGradient
@@ -309,23 +283,25 @@ export default function WelcomeScreen() {
                   iterationCount="infinite"
                   style={WelcomeStyles.buttonEmoji}
                 >
-                  🔤
+                  🎨
                 </Animatable.Text>
                 <View style={WelcomeStyles.buttonTextContainer}>
-                  <Text style={WelcomeStyles.mainButtonText}>Sound Safari</Text>
+                  <Text style={WelcomeStyles.mainButtonText}>
+                    Color & Shape Fun
+                  </Text>
                   <Text style={WelcomeStyles.mainButtonSubtitle}>
-                    Discover letter sounds! 🎵
+                    Discover colors & shapes! 🌈
                   </Text>
                 </View>
                 <Text style={WelcomeStyles.arrow}>➡️</Text>
               </LinearGradient>
             </TouchableOpacity>
-          </Animatable.View> */}
+          </Animatable.View>
 
           <Animatable.View animation="slideInLeft" delay={1800} duration={1000}>
             <TouchableOpacity
               style={WelcomeStyles.mainActionButton}
-              onPress={() => handleButtonPress("/(tabs)/words")}
+              onPress={() => handleButtonPress("/(tabs)/tricky_twins")}
               activeOpacity={0.7}
             >
               <LinearGradient
@@ -339,14 +315,12 @@ export default function WelcomeScreen() {
                   iterationCount="infinite"
                   style={WelcomeStyles.buttonEmoji}
                 >
-                  ✏️
+                  👯
                 </Animatable.Text>
                 <View style={WelcomeStyles.buttonTextContainer}>
-                  <Text style={WelcomeStyles.mainButtonText}>
-                    Writing Wizard
-                  </Text>
+                  <Text style={WelcomeStyles.mainButtonText}>Tricky Twins</Text>
                   <Text style={WelcomeStyles.mainButtonSubtitle}>
-                    Draw magical letters! 🎨
+                    Practice confusing letters!
                   </Text>
                 </View>
                 <Text style={WelcomeStyles.arrow}>➡️</Text>
@@ -375,21 +349,6 @@ export default function WelcomeScreen() {
                 📊
               </Animatable.Text>
               <Text style={WelcomeStyles.toolLabel}>Progress Map</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={WelcomeStyles.toolButton}
-              onPress={() => handleButtonPress("/(tabs)/dictionary")}
-              activeOpacity={0.8}
-            >
-              <Animatable.Text
-                animation="tada"
-                delay={2400}
-                style={WelcomeStyles.toolEmoji}
-              >
-                📚
-              </Animatable.Text>
-              <Text style={WelcomeStyles.toolLabel}>Word Treasure</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
@@ -423,20 +382,6 @@ export default function WelcomeScreen() {
           <Text style={WelcomeStyles.challengeSubtitle}>
             Read 5 magical words and unlock the "Word Wizard" badge today!
           </Text>
-          <TouchableOpacity
-            style={WelcomeStyles.challengeButton}
-            onPress={() => handleButtonPress("/challenge")}
-            activeOpacity={0.8}
-          >
-            <LinearGradient
-              colors={["#A78BFA", "#7C3AED"]}
-              style={WelcomeStyles.challengeButtonGradient}
-            >
-              <Text style={WelcomeStyles.challengeButtonText}>
-                Start Quest! 🚀
-              </Text>
-            </LinearGradient>
-          </TouchableOpacity>
         </Animatable.View>
 
         <Animatable.View
