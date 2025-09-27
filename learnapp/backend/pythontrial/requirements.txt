@@ -1,0 +1,17 @@
+# FastAPI and server
+fastapi
+uvicorn[standard] 
+pydantic
+
+# Libraries required by your model (main.py and advanced_analysis.py)
+numpy
+scipy
+librosa
+gtts
+pygame
+speechrecognition
+
+# ML Libraries for training (for later steps)
+scikit-learn
+joblib 
+pandas

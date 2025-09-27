@@ -8,7 +8,7 @@ const authRoutes = require("./routes/auth");
 const profileRoutes = require("./routes/profile");
 const reportsRoutes = require("./routes/reports");
 const streakRoutes = require("./routes/streak");
-
+const progressRoutes = require("./routes/progress"); // <-- NEW
 const app = express();
 
 // --- Middleware ---
@@ -39,7 +39,7 @@ app.use("/api/profile", profileRoutes);
 app.use("/api/reports", reportsRoutes);
 // This is the protected route for updating the daily streak
 app.use("/api/streak", streakRoutes);
-
+app.use("/api/progress", progressRoutes); // <-- NEW
 // --- Start the Server ---
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
